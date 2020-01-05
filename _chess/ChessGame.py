@@ -70,7 +70,7 @@ class ChessGame(Game):
       if board.is_checkmate():
         return -player if board.turn else player
       else:
-        return 0.1*player
+        return 1e-4 * player
     else:
       return 0
 
