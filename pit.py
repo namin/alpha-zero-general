@@ -12,9 +12,6 @@ from utils import *
 use this script to play manually with the best temp agent.
 """
 
-best_static = True
-human_vs_cpu = False
-
 g = Game()
 
 hp = HumanPlayer(g).play
@@ -32,8 +29,8 @@ except ValueError:
   print('warning: no AI found')
   ap = None
 
-player1 = sp if best_static else ap
-player2 = hp if human_vs_cpu else rp
+player1 = sp
+player2 = rp
 
 arena = Arena.Arena(player1, player2, g, display=Game.display)
 
