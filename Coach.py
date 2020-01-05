@@ -58,6 +58,10 @@ class Coach():
 
             r = self.game.getGameEnded(board, self.curPlayer)
 
+            # hack for chess to avoid pointless draws...
+            if episodeStep>50:
+                return self.executeEpisode()
+
             if r!=0:
                 return [(x[0],x[2],r*((-1)**(x[1]!=self.curPlayer))) for x in trainExamples]
 
