@@ -56,7 +56,7 @@ class ChessGame(Game):
         assert False, "%s not in %s" % (str(move), str(list(board.legal_moves)))
     board = board.copy()
     board.push(move)
-    return (board, who(board.turn))
+    return (board, -player)
 
   def getValidMoves(self, board, player):
     assert(who(board.turn) == player)
@@ -66,11 +66,13 @@ class ChessGame(Game):
     return np.array(acts)
 
   def getGameEnded(self, board, player):
-    if board.is_game_over() or board.can_claim_fifty_moves():
-      if board.is_checkmate():
-        return -player if board.turn else player
-      else:
-        return 1e-4
+    r = board.result()
+    if r=="1-0":
+      return player
+    elif r=="0-1":
+      return -player
+    elif r=="1/2-1/2":
+      return 1e-4
     else:
       return 0
 
