@@ -29,9 +29,9 @@ except ValueError:
   print('warning: no AI found')
   ap = None
 
-player1 = sp
+player1 = ap
 player2 = rp
 
 arena = Arena.Arena(player1, player2, g, display=Game.display)
 
-print(arena.playGames(2, verbose=True))
+print(arena.playGames(10, verbose=False))
