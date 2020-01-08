@@ -12,7 +12,7 @@ def who(turn):
 def to_np(board):
   a = [0]*(8*8*6)
   for sq,pc in board.piece_map().items():
-    a[sq*6+pc.piece_type-1] = 1 if pc.color else -1
+    a[(pc.piece_type-1)*64+sq] = 1 if pc.color else -1
   return np.array(a)
 
 def from_move(move):
@@ -38,7 +38,7 @@ class ChessGame(Game):
     return to_np(board)
 
   def getBoardSize(self):
-    return (8, 8, 6)
+    return (6, 8, 8)
 
   def getActionSize(self):
     return 64*64

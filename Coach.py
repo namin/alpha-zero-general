@@ -47,7 +47,7 @@ class Coach():
         while True:
             episodeStep += 1
             canonicalBoard = self.game.getCanonicalForm(board,self.curPlayer)
-            temp = 2*int(episodeStep < self.args.tempThreshold)
+            temp = 6*int(episodeStep < self.args.tempThreshold)
 
             pi = self.mcts.getActionProb(canonicalBoard, temp=temp)
             sym = self.game.getSymmetries(canonicalBoard, pi)
@@ -62,7 +62,8 @@ class Coach():
             if r!=0:
                 print('result is '+str(r))
                 if r!=1 and r!=-1:
-                    r = 0
+                    #r = 0
+                    pass
                 else:
                     self.someWin = True
                 return [(x[0],x[2],r*((-1)**(x[1]!=self.curPlayer))) for x in trainExamples]
