@@ -87,7 +87,7 @@ class ChessGame(Game):
     return [(board,pi)]
 
   def stringRepresentation(self, board):
-    return board.fen()
+    return board.board_fen()
 
   @staticmethod
   def display(board):
