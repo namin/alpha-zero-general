@@ -87,7 +87,10 @@ class ChessGame(Game):
     return [(board,pi)]
 
   def stringRepresentation(self, board):
-    return board.board_fen()
+    s = board.fen()
+    # remove move information
+    l = s.rindex(' ', s.rindex(' '))
+    return s[0:l]
 
   @staticmethod
   def display(board):

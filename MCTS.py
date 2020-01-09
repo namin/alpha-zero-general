@@ -73,6 +73,11 @@ class MCTS():
         if self.Es[s]!=0:
             # terminal node
             return -self.Es[s]
+        else:
+            last = self.game.getGameEnded(canonicalBoard, 1)
+            if last!=0:
+                # move number related termination
+                return -last
 
         if s not in self.Ps:
             # leaf node
