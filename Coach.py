@@ -47,7 +47,7 @@ class Coach():
         while True:
             episodeStep += 1
             canonicalBoard = self.game.getCanonicalForm(board,self.curPlayer)
-            temp = 2*int(episodeStep < self.args.tempThreshold)
+            temp = int(episodeStep < self.args.tempThreshold)
 
             pi = self.mcts.getActionProb(canonicalBoard, temp=temp)
             sym = self.game.getSymmetries(canonicalBoard, pi)
@@ -61,10 +61,7 @@ class Coach():
 
             if r!=0:
                 print('result is '+str(r))
-                if r!=1 and r!=-1:
-                    #r = 0
-                    pass
-                else:
+                if r == 1 or r == -1:
                     self.someWin = True
                 return [(x[0],x[2],r*((-1)**(x[1]!=self.curPlayer))) for x in trainExamples]
 
@@ -89,23 +86,28 @@ class Coach():
                 end = time.time()
     
                 eps = 0
-                while eps < self.args.numEps or not self.someWin:
+                eps_win = 0
+                while eps_win < self.args.numEps:
                     self.mcts = MCTS(self.game, self.nnet, self.args)   # reset search tree
-                    iterationTrainExamples += self.executeEpisode()
+
+                    self.someWin = False
+                    r = self.executeEpisode()
+                    if self.someWin:
+                        eps_win += 1
+                        iterationTrainExamples += r
+                    eps += 1
     
                     # bookkeeping + plot progress
                     eps_time.update(time.time() - end)
                     end = time.time()
-                    bar.suffix  = '({eps}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(eps=eps+1, maxeps=self.args.numEps, et=eps_time.avg,
+                    bar.suffix  = '({eps}/{eps_win}/{maxeps}) Eps Time: {et:.3f}s | Total: {total:} | ETA: {eta:}'.format(eps=eps, eps_win=eps_win, maxeps=self.args.numEps, et=eps_time.avg,
                                                                                                                total=bar.elapsed_td, eta=bar.eta_td)
                     bar.next()
-                    eps += 1
                 bar.finish()
 
                 # save the iteration examples to the history 
                 self.trainExamplesHistory.append(iterationTrainExamples)
 
-            self.someWin = False
             if len(self.trainExamplesHistory) > self.args.numItersForTrainExamplesHistory:
                 print("len(trainExamplesHistory) =", len(self.trainExamplesHistory), " => remove the oldest trainExamples")
                 self.trainExamplesHistory.pop(0)
