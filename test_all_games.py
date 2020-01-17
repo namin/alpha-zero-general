@@ -41,7 +41,6 @@ from gobang.keras.NNet import NNetWrapper as GobangKerasNNet
 from gobang.tensorflow.NNet import NNetWrapper as GobangTensorflowNNet
 
 from chess.ChessGame import ChessGame
-from chess.ChessPlayers import *
 from chess.pytorch.NNet import NNetWrapper as ChessPytorchNNet
 
 import numpy as np
