@@ -3,7 +3,7 @@ import numpy as np
 from chess.ChessGame import who, from_move, mirror_move
 from chess import lib
 
-class RandomPlayer():
+class RandomChessPlayer():
     def __init__(self, game):
         self.game = game
 

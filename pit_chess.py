@@ -1,7 +1,7 @@
 import Arena
 from MCTS import MCTS
 from chess.ChessGame import ChessGame as Game
-from chess.ChessPlayers import HumanChessPlayer as HumanPlayer, RandomPlayer, StaticChessPlayer
+from chess.ChessPlayers import HumanChessPlayer as HumanPlayer, RandomChessPlayer as RandomPlayer, StaticChessPlayer
 
 from chess.pytorch.NNet import NNetWrapper as NNet
 
