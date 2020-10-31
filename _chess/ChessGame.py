@@ -1,9 +1,9 @@
 from  __future__ import print_function
 import sys
 sys.path.append('..')
-from chess import lib
 from Game import Game
 import numpy as np
+import chess
 
 def who(turn):
     return 1 if turn else -1
@@ -20,10 +20,10 @@ def from_move(move):
 def to_move(action):
     to_sq = action % 64
     from_sq = int(action / 64)
-    return lib._chess.Move(from_sq, to_sq)
+    return chess.Move(from_sq, to_sq)
 
 def mirror_move(move):
-    return lib._chess.Move(lib._chess.square_mirror(move.from_square), lib._chess.square_mirror(move.to_square))
+    return chess.Move(chess.square_mirror(move.from_square), chess.square_mirror(move.to_square))
 
 class ChessGame(Game):
 
@@ -31,7 +31,7 @@ class ChessGame(Game):
         pass
 
     def getInitBoard(self):
-        return lib._chess.Board()
+        return chess.Board()
 
     def toArray(self, board):
         return to_np(board)
@@ -50,7 +50,7 @@ class ChessGame(Game):
             move = mirror_move(move)
         if move not in board.legal_moves:
             # could be a pawn promotion, which has an extra letter in UCI format
-            move = lib._chess.Move.from_uci(move.uci()+'q') # assume promotion to queen
+            move = chess.Move.from_uci(move.uci()+'q') # assume promotion to queen
         if move not in board.legal_moves:
             assert False, "%s not in %s" % (str(move), str(list(board.legal_moves)))
         board = board.copy()

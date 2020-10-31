@@ -3,8 +3,8 @@ import logging
 import coloredlogs
 
 from Coach import Coach
-from chess.ChessGame import ChessGame as Game
-from chess.pytorch.NNet import NNetWrapper as nn
+from _chess.ChessGame import ChessGame as Game
+from _chess.pytorch.NNet import NNetWrapper as nn
 from utils import *
 
 log = logging.getLogger(__name__)

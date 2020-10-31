@@ -1,7 +1,7 @@
 import random
 import numpy as np
-from chess.ChessGame import who, from_move, mirror_move
-from chess import lib
+from _chess.ChessGame import who, from_move, mirror_move
+import chess
 
 class RandomChessPlayer():
     def __init__(self, game):
@@ -14,7 +14,7 @@ class RandomChessPlayer():
 
 def move_from_uci(board, uci):
     try:
-        move = lib._chess.Move.from_uci(uci)
+        move = chess.Move.from_uci(uci)
     except ValueError:
         print('expected an UCI move')
         return None
@@ -56,12 +56,12 @@ class StrategicChessPlayer():
 MIN_SCORE = -1000
 MAX_SCORE = -MIN_SCORE
 
-piece_values = {lib._chess.KING: 0,
-                lib._chess.PAWN: 1,
-                lib._chess.BISHOP: 3,
-                lib._chess.KNIGHT: 3,
-                lib._chess.ROOK: 5,
-                lib._chess.QUEEN: 9}
+piece_values = {chess.KING: 0,
+                chess.PAWN: 1,
+                chess.BISHOP: 3,
+                chess.KNIGHT: 3,
+                chess.ROOK: 5,
+                chess.QUEEN: 9}
 
 def evaluate_board(board):
     score = 0
