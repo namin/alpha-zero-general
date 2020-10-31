@@ -1,8 +1,8 @@
 from MCTS import MCTS
-from chess.ChessGame import ChessGame as Game
-from chess.pytorch.NNet import NNetWrapper as NNet
-from chess.pytorch.NNet import args
-from chess.ChessGame import to_np, to_move, mirror_move, who
+from _chess.ChessGame import ChessGame as Game
+from _chess.pytorch.NNet import NNetWrapper as NNet
+from _chess.pytorch.NNet import args
+from _chess.ChessGame import to_np, to_move, mirror_move, who
 
 import numpy as np
 from utils import *
